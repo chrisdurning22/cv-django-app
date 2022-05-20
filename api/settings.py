@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-ex4h$0)@&+wg#fil5b((+t-7uvxf&rul4zy^)a@g35q@f5i!'
 DEBUG = False
 
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['cv-django-api.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['cv-django-api.herokuapp.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
