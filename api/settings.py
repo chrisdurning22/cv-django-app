@@ -108,7 +108,7 @@ DATABASES = {
         'USER': 'rdonmvxvpbdcyo',
         'PASSWORD': '38d9870520d9fba6b15baba805b687e0ff61dd6813f457a5256d5e7cbd863f0d',
         'HOST': 'ec2-63-32-248-14.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
+        'PORT': '5432'
     }
 }
 
