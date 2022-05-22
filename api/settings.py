@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 import django_heroku
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,14 +21,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ex4h$0)@&+wg#fil5b((+t-7uvxf&rul4zy^)a@g35q@f5i!'
+SECRET_KEY = config('SECRET_KEY')
+
+print()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS = ['cv-django-api.herokuapp.com', '127.0.0.1']
-
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+if not DEBUG:
+    ALLOWED_HOSTS += [config('ALLOWED_HOST')]
 
 # Application definition
 
@@ -79,39 +82,16 @@ WSGI_APPLICATION = 'api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'chrisdurning',
-#         'USER': 'root',
-#         'PASSWORD': 'ChrisDurning',
-#         'HOST': '127.0.0.1',
-#         'PORT': '3306',
-#     }
-# }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': os.environ.get('MYSQL_DATABASE', 'chrisdurning'),
-#         'USER': os.environ.get('MYSQL_USER', 'root'),
-#         'PASSWORD': os.environ.get('MYSQL_PASSWORD', 'ChrisDurning'),
-#         'HOST': os.environ.get('MYSQL_DATABASE_HOST', 'db'),
-#         'PORT': os.environ.get('MYSQL_DATABASE_PORT', 3306),
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dev73fprh8g3r',
-        'USER': 'rdonmvxvpbdcyo',
-        'PASSWORD': '38d9870520d9fba6b15baba805b687e0ff61dd6813f457a5256d5e7cbd863f0d',
-        'HOST': 'ec2-63-32-248-14.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432'
+        'ENGINE': config('DATABASE_ENGINE'),
+        'NAME': config('DATABASE_NAME'),
+        'USER': config('DATABASE_USER', default=''),
+        'PASSWORD': config('DATABASE_PASSWORD', default=''),
+        'HOST': config('DATABASE_HOST', default=''),
+        'PORT': config('DATABASE_PORT', cast=int)
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
