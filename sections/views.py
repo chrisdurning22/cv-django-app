@@ -12,7 +12,9 @@ class SectionsList(APIView):
     def get(self, request):
         sections = Section.objects.filter(user_id=1)
         serializer = SectionSerializer(sections, many=True)
+        filter_backends = [filters.OrderingFilter]
         ordering_fields = ['id']
+        ordering = ['id']
         return Response(serializer.data)
 
     # may be needed in future 
