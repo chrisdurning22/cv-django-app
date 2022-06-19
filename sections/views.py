@@ -5,18 +5,14 @@ from .serializers import SectionSerializer
 from api.utils import check_and_validate_token
 from .models import Section
 import jwt # this can be removed
-from rest_framework import filters
 
 
 class SectionsList(APIView):
 
     # returns sections for user 1 - no need to authenticate (unauth users can view my sections on load of home page)
     def get(self, request):
-        sections = Section.objects.filter(user_id=1)
+        sections = Section.objects.filter(user_id=1).order_by('-id')
         serializer = SectionSerializer(sections, many=True)
-        filter_backends = [filters.OrderingFilter]
-        ordering_fields = ['id']
-        ordering = ['id']
         return Response(serializer.data)
 
     # may be needed in future 
