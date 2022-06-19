@@ -5,6 +5,8 @@ from .serializers import SectionSerializer
 from api.utils import check_and_validate_token
 from .models import Section
 import jwt # this can be removed
+from rest_framework import filters
+
 
 class SectionsList(APIView):
 
